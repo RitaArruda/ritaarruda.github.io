@@ -1,0 +1,84 @@
+titulo{
+    display: block;
+}
+
+h1{
+    margin-right: 20px;
+    font-size: 40px;
+    margin-left: 500px;
+    color: #ff007f;
+    width: 500px;
+    margin-top: -5px;
+}
+
+
+article img{
+    max-width: 600px;
+    margin-left: 100px;
+    margin-top: 30px;
+}
+
+body{
+    display: flex;
+    background-color: black;
+}
+
+form{
+    line-height: 45px;
+    margin-left: -900px;
+    margin-right: 40px;
+    margin-top: -15px;
+}
+
+label{
+    font-size: 16px;
+    color: white;
+    display: block;
+    margin-bottom: -20px;
+}
+
+input{
+    border: solid;
+    border-radius: 20px;
+    border-width: 1px;
+    height: 25px;
+    width: 400px;
+}
+
+.genero{
+    border: solid;
+    border-radius: 20px;
+    border-width: 1px;
+    height: 30px;
+    width: 400px;
+}
+
+.pais{
+    border: solid;
+    border-radius: 20px;
+    border-width: 1px;
+    height: 30px;
+    width: 400px;
+}
+
+.obs{
+    width: 400px;
+    border: solid;
+    border-radius: 20px;
+    border-width: 1px;
+    height: 35px;
+    margin-top: 10px;
+    margin-bottom: -15px
+}
+
+div img{
+    width: 90px;
+    margin-top: 10px;
+    margin-left: 150px;
+}
+
+.env{
+    height: 30px;
+    width: 200px;
+    margin-left: 90px;
+}

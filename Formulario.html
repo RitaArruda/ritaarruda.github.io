@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Formulario.css">
+    <title>Formulário de Cadastro</title>
+</head>
+<body>
+
+    <div class="titulo">
+        <h1>Faça seu Cadastro</h1>
+    </div>
+
+    <form action="http://httpbin.org/post" method="post">
+
+        <div class="imgum">
+            <img src="user (1).png" alt="icone-cadastro">
+        </div>
+
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" required pattern="[A-Za-z\s]{2,}">
+        <br>
+        
+        <label for="idade">Idade</label>
+        <input type="number" class="idade" name="idade" required min="18" max="120">
+        <br>
+
+        <label for="genero">Gênero</label>
+        <select class="genero" name="genero">
+            <option value="masculino">Masculino</option>
+            <option value="feminino">Feminino</option>
+            <option value="outro">Outro</option>
+        </select>
+        <br>
+
+        <label for="pais">País</label>
+        <select class="pais" name="pais">
+            <option value="brasil">Brasil</option>
+            <option value="estadosunidos">Estados Unidos</option>
+            <option value="canada">Canadá</option>
+            <option value="outros">Outro</option>
+        </select>
+        <br>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required pattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+        <br>
+
+        <label for="obs">Observação</label>
+        <textarea class="obs" name="obs"></textarea>
+        <br>
+
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" required>
+        <br>
+
+        <input class="env" type="submit" value="Enviar">
+    </form>
+    <article>
+        <img src="Authentication-bro.png" alt="icone-cadastro">
+    </article>
+</body>
+</html>
