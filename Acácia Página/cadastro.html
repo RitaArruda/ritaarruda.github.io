@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cadastro.css">
+    <title>Cadastro</title>
+</head>
+
+<body>
+    <div class="titulo">
+        <h1>Cadastro</h1>
+    </div>
+
+    <main>
+    <form action="http://httpbin.org/post" method="post">
+
+        <label for="nome">Nome</label>
+        <input type="text" class="nome" name="nome" required pattern="[A-Za-z\s]{2,}">
+        <br>
+        
+        <label for="idade">Idade</label>
+        <input type="number" class="idade" name="idade" required min="10" max="120">
+        <br>
+
+        <label for="email">Email</label>
+        <input type="email" class="email" name="email" required pattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+        <br>
+
+        <label for="senha">Senha</label>
+        <input type="password" class="senha" required>
+        <br>
+
+        <button class="envia">Enviar</button>
+    </form>
+    <article>
+        <video loop autoplay muted>
+            <source src="Account.mp4" type="video/mp4">
+        </video>
+    </article>
+
+    </main>
+</body>
+</html>
