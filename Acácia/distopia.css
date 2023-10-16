@@ -137,10 +137,10 @@ h2{
 }
 
 
-@media screen and (max-width: 700px){
+@media screen and (max-width: 1005px){
     .card{
-        width: 400px;
-        height: 720px;
+        width: 380px;
+        height: 750px;
         display: block;
         margin-left: -15px;
     }
@@ -160,6 +160,11 @@ h2{
 
     .envia{
         margin-left: -250px;
+    }
+
+    body{
+        overflow-x: hidden;
+        overflow-y: scroll;
     }
 
 }

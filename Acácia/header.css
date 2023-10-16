@@ -189,15 +189,16 @@ section p{
 }
 
 
-@media screen and (max-width: 700px){
+@media screen and (max-width: 1005px){
     header{
         display: block;
+        margin-left: 90px;
     }
 
     .navigation{
        margin-left: 40px;
-       width: 390px;
-       margin-top: -70px;
+       width: 600px;
+       margin-top: -50px;
     }
 
     main section p{
@@ -205,7 +206,7 @@ section p{
     }
 
     .im img{
-        width: 100px;
+        width: 70px;
         height: auto;
         margin-left: 20px;
         margin-top: -10px;
@@ -213,19 +214,50 @@ section p{
     }
 
     .img img{
-        width: 90px;
+        width: 80px;
         height: auto;
-        margin-left: 350px;
+        margin-left: 340px;
         margin-top: -70px;
-        margin-right: 40px;
+        margin-right: 04px;
     }
 
     .op{
-        margin-left: 130px;
+        margin-left: 230px;
+        height: 30px;
+        width: 170px;
     }
 
    #background{
-    width: 900px;
-    margin-left: -400px;
+    width: 1005px;
+    margin-left: -310px;
    }
+
+   main{
+    margin-top: -40px;
+   }
+
+    section h1{
+        color: white;
+        font-size: 35px;
+        margin-left: 190px;
+    }
+
+    section h2{
+        font-size: 35px;
+        margin-top: -40px;
+        margin-left: 250px;
+    }
+
+    section p{
+        font-size: 17px;
+    }
+
+    main section p{
+        width: 600px;
+        line-height: 20px;
+        margin-top: 290px;
+    }
+    body{
+        overflow: hidden;
+    }
 }

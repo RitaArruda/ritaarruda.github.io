@@ -36,7 +36,7 @@ main{
 
 .cards{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: start;
     gap: 1.25rem;
     margin-top: -150px;
@@ -49,11 +49,7 @@ main{
     width: 310px;
     height: 570px;
     padding: 2rem 0 0 2rem;
-}
-
-.card:nth-child(2n){
-    align-self: end;
-    background-color: #ffffff;
+    margin-left: 10px;
 }
 
 .card strong{
@@ -97,44 +93,24 @@ article video{
 }
 
 
-/* Responsividade */
 
-@media screen and (min-width: 40rem){
-    header nav{
+@media screen and (max-width: 1005px){
+    .card{
+        width: 400px;
         display: block;
-        text-align: center;
+        margin-left: -20px;
+        height: 600px;
+        margin-bottom: 30px;
     }
 
     .cards{
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: block;
+        flex-direction: column;
+        margin-left: 70px;
     }
 
-    .card:nth-child(2n){
-        margin-top: 1rem;
+    body{
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
-
-}
-
-
-@media screen and (min-width: 72rem){
-    .container{
-        display: flex;
-        align-items: center;
-        margin: 0 auto;
-        max-width: 72rem;
-    }
-
-    .container.row-reverse{
-        flex-direction: row-reverse;
-    }
-
-    .restorer-section img{
-        display: auto;
-        margin: 1.25rem 0 0 auto;
-        max-width: 50%;
-       
-    }
-
 }
