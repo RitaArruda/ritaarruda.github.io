@@ -8,6 +8,10 @@ header {
     padding-top: 24px;
 }
 
+main{
+    display: flex;
+}
+
 .im img{
     width: 150px;
     height: auto;
@@ -16,15 +20,7 @@ header {
     margin-right: 40px;
 }
 
-.img img{
-    width: 150px;
-    height: auto;
-    margin-left: 40px;
-    margin-top: -30px;
-    margin-right: 40px;
-}
-
-.navigation{
+.navigation {
     display: flex;
     align-items: center;
     column-gap: 48px;
@@ -90,7 +86,7 @@ header {
 }
 
 
-body, button, a{
+body, button, a {
   border: 0px;
   color: #BA68C8;
   font: 400 1rem "Mukta", sans-serif;
@@ -192,74 +188,47 @@ section p{
 @media screen and (max-width: 1005px){
     header{
         display: block;
-        margin-left: 10px;
     }
 
     .navigation{
-       margin-left: 10px;
-       width: 600px;
-       margin-top: -50px;
+       margin-left: 5px;
+       width: 390px;
+       margin-top: 20px;
+       margin-bottom: 270px;
     }
 
-    main section p{
-        width: 390px;
+    section h1, section h2{
+        font-size: 30px;
+        line-height: 45px;
     }
 
-    .im img{
-        width: 70px;
-        height: auto;
-        margin-left: 20px;
-        margin-top: -10px;
-        margin-right: 40px;
+    section{
+        margin-top: 100px;
+        margin-left: 5px;
+        width: 320px;
     }
 
-    .img img{
-        width: 80px;
-        height: auto;
-        margin-left: 340px;
-        margin-top: -70px;
-        margin-right: 04px;
-    }
-
-    .op{
-        margin-left: 30px;
-        height: 30px;
-        width: 170px;
-    }
-
-   #background{
-    width: 1005px;
-    margin-left: -450px;
-   }
-
-   main{
-    margin-top: -40px;
-   }
-
-    section h1{
-        color: white;
-        font-size: 35px;
-        margin-left: 20px;
+    h1{
+        margin-top: 40px;
     }
 
     section h2{
-        font-size: 35px;
-        margin-top: -40px;
-        margin-left: 20px;
+        margin-left: 80px;
     }
 
-    section p{
-        font-size: 15px;
-    }
-
-    main section p{
-        width: 400px;
-        line-height: 20px;
-        margin-top: 290px;
+    .op{
+        margin-top: -60px;
+        width: 180px;
+        height: 25px;
+        margin-left: 70px;
     }
 
     body{
-        overflow-x: hidden;
-        overflow-y: scroll;
+        overflow: hidden;
     }
+
+    #background{
+        margin-left: -50px;
+       }
+
 }

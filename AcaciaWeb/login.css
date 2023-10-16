@@ -1,11 +1,10 @@
 main{
-    background-color: white;
     display: flex;
     margin-left: 100px;
 }
 
 form{
-    margin-top: 50px;
+    margin-top: 130px;
     margin-left: 50px;
 }
 
@@ -19,28 +18,21 @@ form input{
     border-radius: 50px;
 }
 
-.nome{
-    margin-left: -4px;
-    width: 300px;
-}
-
 .idade{
-    width: 300px;
+    margin-left: 3px;
 }
 
 .email{
-    width: 300px;
-}
-
-.senha{
-    margin-left: -4px;
-    width: 290px;
+    margin-left: 1px;
 }
 
 .titulo{
-    font-size: 20px;
-    color:#000000;
     margin-left: 100px;
+}
+
+h1{
+    color:#000000;
+    font-size: 40px;
 }
 
 img{
@@ -54,7 +46,7 @@ img{
     border-radius: 50px;
     width: 200px;
     height: 50px;
-    margin-left: 120px;
+    margin-left: 125px;
     text-transform: uppercase;
     font-size: 15px;
     border: #BA68C8;
@@ -66,12 +58,14 @@ img{
     transition: 0.3s all;
 }
 
+
 label{
     font-size: 20px;
     color: #000000;
     line-height: 10px;
     margin-right: 20px;
 }
+
 
 body, button, a {
     border: 0px;
@@ -83,8 +77,12 @@ article video{
     margin-top: -60px;
 }
 
+.senha{
+    margin-left: -4px;
+}
 
-@media screen and (max-width: 1005px){
+
+@media screen and (max-width: 700px){
     main{
         display: block;
     }
@@ -94,9 +92,9 @@ article video{
     }
 
     article video{
-        margin-left: -60px;
-        margin-top: 30px;
+        margin-left: -70px;
         width: 380px;
+        margin-top: 50px;
     }
 
     body{
