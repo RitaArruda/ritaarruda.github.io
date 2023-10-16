@@ -94,13 +94,17 @@ article video{
     }
 
     article video{
-        margin-left: -40px;
+        margin-left: -60px;
         margin-top: 30px;
-        width: 400px;
+        width: 380px;
     }
 
     body{
         overflow-x: hidden;
         overflow-y: scroll;
+    }
+
+    .envia{
+        margin-left: 20px;
     }
 }

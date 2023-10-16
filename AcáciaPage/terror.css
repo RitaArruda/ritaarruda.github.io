@@ -130,14 +130,14 @@ h2{
 
 @media screen and (max-width: 1005px){
     .card{
-        width: 380px;
-        height: 750px;
+        width: 340px;
+        height: 800px;
         display: block;
         margin-left: -15px;
     }
 
     .tp{
-        width: 320px;
+        width: 280px;
         font-size: 13px;
     }
 
