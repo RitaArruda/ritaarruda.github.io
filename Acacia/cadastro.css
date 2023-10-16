@@ -84,7 +84,7 @@ article video{
 }
 
 
-@media screen and (max-width: 700px){
+@media screen and (max-width: 1005px){
     main{
         display: block;
     }

@@ -189,7 +189,7 @@ section p{
 }
 
 
-@media screen and (max-width: 700px){
+@media screen and (max-width: 1005px){
     header{
         display: block;
         margin-left: 10px;
@@ -249,12 +249,17 @@ section p{
     }
 
     section p{
-        font-size: 17px;
+        font-size: 15px;
     }
 
     main section p{
         width: 400px;
         line-height: 20px;
         margin-top: 290px;
+    }
+
+    body{
+        overflow-x: hidden;
+        overflow-y: scroll;
     }
 }
