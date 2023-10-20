@@ -1,20 +1,18 @@
 <div style="background-color: #f3e5f5; padding: 20px; text-align: center; border-radius: 10px;">
 
 # ritaarruda.github.io
-
 <br>
-
 Confira meus projetos
 
-<a href="L4" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">L4</a>
-<a href="L5" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">L5</a>
-<a href="fun/James.html" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">James</a>
-<a href="Formulario.html" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">Formulário</a>
-<a href="Form.html" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">Formulário 2</a>
-<a href="CurriculoElon-L2/curriculo.html" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">Curriculo Elon L2</a>
-<a href="MirroFashion-L3" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">Mirror Fashion L3</a>
-<a href="MirrorFashion2-L3" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">Mirror Fashion L3 2</a>
-<a href="AcaciaFWeb/header.html" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">Proposta Site Acácia</a>
+<a href="L4" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">L4</a><br>
+<a href="L5" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">L5</a><br>
+<a href="fun/James.html" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">James</a><br>
+<a href="Formulario.html" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">Formulário</a><br>
+<a href="Form.html" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">Formulário 2</a><br>
+<a href="CurriculoElon-L2/curriculo.html" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">Curriculo Elon L2</a><br>
+<a href="MirroFashion-L3" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">Mirror Fashion L3</a><br>
+<a href="MirrorFashion2-L3" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">Mirror Fashion L3 2</a><br>
+<a href="AcaciaFWeb/header.html" style="display: block; background-color: #b468c8; color: white; text-align: center; padding: 10px 20px; margin: 10px auto; border-radius: 25px;" target="_blank">Proposta Site Acácia</a><br>
 
 <br>
 
