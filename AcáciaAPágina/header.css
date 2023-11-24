@@ -168,7 +168,7 @@ section p{
 }
 
 
-@media screen and (max-width: 412px){
+@media screen and (max-width: 1005px){
     header{
         display: block;
         margin-left: 130px;
