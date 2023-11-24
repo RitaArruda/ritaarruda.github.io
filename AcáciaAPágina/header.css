@@ -1,4 +1,4 @@
-header {
+ header {
     display: flex;
     align-items: center;
     column-gap: 64px;
@@ -168,7 +168,7 @@ section p{
 }
 
 
-@media screen and (max-width: 1005px){
+@media screen and (max-width: 412px){
     header{
         display: block;
         margin-left: 130px;
