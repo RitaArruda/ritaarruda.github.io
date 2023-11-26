@@ -1,0 +1,225 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a, strong, p{
+    border: 0px;
+    font: 400 1rem "Mukta", sans-serif;
+}
+
+strong{
+    color: #BA68C8;
+    text-shadow: 1px 1px black;
+    font-size: 18px;
+}
+
+:root{
+    --color-primary: #BA68C8;
+    --color-secundary: rgb(171, 1, 201);
+    --color-black: black;
+    --color-white: white; 
+}
+
+body{
+    background-color: white;
+}
+
+main{
+    margin-top: 200px;
+}
+
+.cards{
+    display: inline-block;
+    flex-direction: column;
+    align-items: start;
+    gap: 1.25rem;
+    margin-top: -150px;
+    margin-bottom: 20px;
+}
+
+.card{
+    background-color: #ffffff;
+    border: 2px solid var(--color-black);
+    box-shadow: 4px 4px 0 var(--color-black);
+    width: 1260px;
+    height: 300px;
+    padding: 2rem 0 0 2rem;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.fan{
+    display: block;
+    width: 320px;
+}
+
+.card:nth-child(2n){
+    align-self: end;
+    background-color: #ffffff;
+}
+
+
+.tp{
+    width: 800px;
+}
+
+.card a{
+    display: block;
+    margin:  3rem 0 0 auto;
+    width: fit-content;
+}
+
+.text-primary{
+    color: var(--color-primary);
+}
+
+.text-secundary{
+    color: var(--color-secundary);
+}
+
+.text-center{
+    text-align: center;
+}
+
+.fan img{
+    max-width: 200px;
+    margin-left: 30px;
+    margin-right: 60px;
+}
+
+h2{
+    line-height: 50px;
+}
+
+.envia{
+    background-color: #BA68C8;
+    border-radius: 50px;
+    width: 170px;
+    height: 40px;
+    margin-left: 700px;
+    text-transform: uppercase;
+    font-size: 15px;
+    border: #BA68C8;
+    color: white;
+    margin-top: -10px;
+}
+
+.envia:hover{
+    background-color: #d584e4;
+    transition: 0.3s all;
+}
+
+.mil{
+    width: 130px;
+}
+
+.jogos{
+    width: 200px;
+}
+
+.adm{
+    width: 140px;
+}
+
+.fah{
+    width: 140px;
+}
+
+
+.lady{
+    width: 120px;
+}
+
+.palh{
+    width: 190px;
+}
+
+.btk{
+    width: 170px;
+}
+
+.mind{
+    width: 170px;
+}
+
+
+
+.an{
+    width: 110px;
+}
+
+.med{
+    width: 110px;
+}
+
+.exo{
+    width: 180px;
+}
+
+.star-container {
+    font-size: 40px;
+}
+
+
+
+.imagem-aridante{
+    width: 100px;
+}
+
+.imagem-org{
+    width: 100px;
+}
+
+.imagem-evelyn{
+    width: 150px;
+}
+
+.imagem-morros{
+    width: 120px;
+}
+
+
+
+.star-container {
+    font-size: 40px;
+}
+
+.star {
+    display: inline-block;
+    font-size: inherit;
+}
+
+
+@media screen and (max-width: 1005px){
+    .card{
+        width: 340px;
+        height: 820px;
+        display: block;
+    }
+    .tp{
+        width: 250px;
+        font-size: 13px;
+    }
+
+    .tp h1{
+        line-height: 15px;
+    }
+
+    .tp p{
+        font-size: 17px;
+    }
+
+    .envia{
+        margin-left: -250px;
+    }
+
+    .star-container {
+        font-size: 20px; 
+    }
+    
+    .star {
+        font-size: inherit; 
+    }
+}
