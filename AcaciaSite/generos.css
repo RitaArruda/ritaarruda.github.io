@@ -52,7 +52,7 @@ main{
     background-color: #ffffff;
     border: 2px solid var(--color-black);
     box-shadow: 4px 4px 0 var(--color-black);
-    width: 310px;
+    width: 280px;
     height: 600px;
     padding: 2rem 0 0 2rem;
 }
