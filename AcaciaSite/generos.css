@@ -4,7 +4,7 @@
     padding: 0;
 }
 
-a, strong, p, h2, h1{
+a, strong, p, h2, h1, h3, h4{
     border: 0px;
     font: 400 1rem "Mukta", sans-serif;
 }
@@ -15,7 +15,7 @@ strong{
     font-size: 18px;
 }
 
-.na, .fot, .hd{
+.na, .fot, .hd, .sec{
     display: none;
 }
 
