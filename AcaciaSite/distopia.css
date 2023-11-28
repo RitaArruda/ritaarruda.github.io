@@ -43,8 +43,8 @@ main{
     background-color: #ffffff;
     border: 2px solid var(--color-black);
     box-shadow: 4px 4px 0 var(--color-black);
-    width: 1260px;
-    height: 300px;
+    width: 1200px;
+    height: 360px;
     padding: 2rem 0 0 2rem;
     display: flex;
     margin-bottom: 20px;
