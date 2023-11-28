@@ -2,7 +2,7 @@ let livros = [
     {
         titulo: "Aristóteles e Dante Descobrem os Segredos do Universo",
         imagem: "rom/aridante.webp",
-        resumo: "Em um verão tedioso, os jovens Aristóteles e Dante são unidos pelo acaso e, embora sejam completamente diferentes um do outro, iniciam uma amizade do tipo que muda a vida das pessoas e dura para sempre. E é através dessa amizade que Ari e Dante vão descobrir mais sobre si mesmos. Dante é articulado e confiante. Ari tem dificuldade com palavras e duvida de si. Dante é apaixonado por poesia e arte. Ari se perde em pensamentos sobre seu irmão mais velho, que está na prisão",
+        resumo: "Em um verão tedioso, Aristóteles e Dante são unidos pelo acaso e, embora sejam completamente diferentes um do outro, iniciam uma amizade do tipo que muda a vida das pessoas e dura para sempre. E é através dessa amizade que Ari e Dante vão descobrir mais sobre si mesmos. Dante é articulado e confiante. Ari tem dificuldade com palavras e duvida de si. Dante é apaixonado por poesia. Ari se perde em pensamentos sobre seu irmão mais velho",
         linkCompra: "https://www.amazon.com.br/Arist%C3%B3teles-Dante-descobrem-segredos-universo/dp/8565765350e",
         imagemClasse: "imagem-aridante",
         imagemDois: "quatro.jpeg",
