@@ -220,6 +220,10 @@ section p{
         margin-left: 70px;
     }
 
+    .opcoes{
+        margin-left: -60px;
+    }
+
     #background{
         width: 900px;
         margin-left: -350px;
