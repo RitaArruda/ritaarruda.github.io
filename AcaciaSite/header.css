@@ -141,6 +141,7 @@ section p{
     transition: 0.3s all;
     color: white;
     cursor: pointer;
+    border: 2px solid #6a1b99;
 }
 
 #background {
@@ -172,9 +173,8 @@ section p{
 }
 
 
-:focus {
-    outline: 2px solid #007bff; /* Cor e estilo do contorno */
-    outline-offset: 2px; /* Espaçamento entre o contorno e o elemento */
+a:focus, input:focus, textarea:focus {
+    border: 2px solid #6a1b99; 
   }
 
 @media screen and (max-width: 1005px){
