@@ -11,7 +11,7 @@ let livros = [
     {
         titulo: "BTK Profile: Máscara da Maldade",
         imagem: "tru/BTK.jpg",
-        resumo: "Ao longo de três décadas, um monstro aterrorizou os moradores de Wichita, Kansas. Um assassino em série que amarrava, torturava e matava mulheres, homens e crianças, iludiu a polícia por anos a fio enquanto se vangloriava de suas terríveis façanhas para a mídia. A nação ficou chocada quando os crimes de BTK ― a sigla para os termos em inglês bind, torture, kill, que eram sua assinatura criminosa ― foram enfim associados a Dennis Rader, um vizinho amigável, marido devoto e respeitado presidente da congregação de uma igreja local.",
+        resumo: "Por três décadas, um monstro aterrorizou os moradores de Wichita. Um assassino em série que amarrava, torturava e matava, iludiu a polícia por anos enquanto se vangloriava de seus crimes para a mídia. A nação ficou chocada quando os crimes de BTK ― a sigla para bind, torture, kill, sua assinatura criminosa ― foram enfim associados a Dennis Rader, um vizinho amigável e respeitado presidente da congregação de uma igreja local.",
         linkCompra: "https://www.darksidebooks.com.br/btk-profile-o-retrato-da-maldade-drk-x/p",
         imagemClasse: "btk",
         imagemDois: "quatro.jpeg",
