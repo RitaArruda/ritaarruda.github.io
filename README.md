@@ -1,4 +1,4 @@
-```html
+```
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -52,7 +52,6 @@
                     <img src="https://img.icons8.com/?size=100&id=21278&format=png&color=000000" alt="css icon">
                     <img src="https://img.icons8.com/?size=100&id=13679&format=png&color=000000" alt="java icon">
                     <img src="https://img.icons8.com/?size=100&id=108784&format=png&color=000000" alt="javascript icon">
-                </div>
                 </div>
             </div>
 
@@ -156,11 +155,7 @@
 
         
     </main>
-
-    <footer>
-        <img src="past/images/wave.svg" alt="">
-    </footer>
     <script src="past/script.js"></script>
 </body>
 </html>
-\```
+\
