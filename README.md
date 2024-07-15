@@ -1,5 +1,4 @@
-```
-<!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -158,4 +157,4 @@
     <script src="past/script.js"></script>
 </body>
 </html>
-\
+
