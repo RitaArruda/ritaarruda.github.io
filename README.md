@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="past/styles/styles.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
@@ -72,7 +72,7 @@
             </div>
 
             <div id="banner">
-                <img src="images/programa.png" alt="">
+                <img src="past/images/programa.png" alt="">
             </div>
         </section>
 
@@ -82,7 +82,7 @@
 
             <div id="dishes">
                 <div class="dish">
-                    <img src="preview (2).png" class="dish-image" alt="">
+                    <img src="past/preview (2).png" class="dish-image" alt="">
 
                     <h3 class="dish-title">
                         Restaurante
@@ -103,7 +103,7 @@
                 </div>
 
                 <div class="dish">
-                    <img src="preview (1).png" class="dish-image" alt="">
+                    <img src="past/preview (1).png" class="dish-image" alt="">
 
                     <h3 class="dish-title">
                         Safe Travel
@@ -124,7 +124,7 @@
                 </div>
 
                 <div class="dish">
-                    <img src="preview (3).png" class="dish-image" alt="">
+                    <img src="past/preview (3).png" class="dish-image" alt="">
 
                     <h3 class="dish-title">
                         Site Dinsey
@@ -146,7 +146,7 @@
                 </div>
 
                 <div class="dish">
-                    <img src="preview.png" class="dish-image" alt="">
+                    <img src="past/preview.png" class="dish-image" alt="">
                     
                     <h3 class="dish-title">
                         Mario Bros
@@ -173,9 +173,9 @@
     </main>
 
     <footer>
-        <img src="images/wave.svg" alt="">
+        <img src="past/images/wave.svg" alt="">
     </footer>
-    <script src="script.js"></script>
+    <script src="past/script.js"></script>
 </body>
 </html>
 \```
