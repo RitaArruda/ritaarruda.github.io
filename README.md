@@ -32,21 +32,6 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
         </nav>
-
-        <div id="mobile_menu">
-            <ul id="mobile_nav_list">
-                <li class="nav-item">
-                    <a href="#home">Sobre mim</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#menu">Trabalhos</a>
-                </li>
-            </ul>
-
-            <button class="btn-default">
-                Linkedin
-            </button>
-        </div>
     </header>
 
     <main id="content">
@@ -97,7 +82,7 @@
                         <img src="https://img.icons8.com/?size=100&id=108784&format=png&color=000000" alt="javascript icon">
                     </div>
 
-                    <button class="btn-default">
+                    <button class="btn-default" onclick="window.location.href='https://ritaarruda.github.io/grilli-master/index.html'">
                         Acesse
                     </button>
                 </div>
