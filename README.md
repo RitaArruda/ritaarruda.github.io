@@ -101,7 +101,7 @@
                         <img src="https://img.icons8.com/?size=100&id=21278&format=png&color=000000" alt="css icon">
                     </div>
 
-                    <button class="btn-default">
+                    <button class="btn-default" onclick="window.location.href='ritaarruda.github.io/travel/index.html'">
                         Acesse
                     </button>
                 </div>
@@ -123,7 +123,7 @@
                         <img src="https://img.icons8.com/?size=100&id=108784&format=png&color=000000" alt="javascript icon">
                     </div>
 
-                    <button class="btn-default">
+                    <button class="btn-default" onclick="window.location.href='https://ritaarruda.github.io/disney/index.html'">
                         Acesse
                     </button>
                 </div>
@@ -145,7 +145,7 @@
                         <img src="https://img.icons8.com/?size=100&id=21278&format=png&color=000000" alt="css icon">
                     </div>
 
-                    <button class="btn-default">
+                   <button class="btn-default" onclick="window.location.href='ritaarruda.github.io/MarioSite/index.html'">
                         Acesse
                     </button>
                 </div>
