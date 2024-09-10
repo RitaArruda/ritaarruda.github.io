@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konig - Grafos Ponderados e Direcionados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #cf8dfc;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #d49bfa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bem-vindo ao Konig</h1>
+        <p>Escolha o tipo de grafo que deseja criar:</p>
+        <div class="buttons">
+            <button onclick="redirectTo('ponderado')">Grafo Ponderado</button>
+            <button onclick="redirectTo('direcionado')">Grafo Direcionado</button>
+        </div>
+    </div>
+
+    <script>
+        function redirectTo(page) {
+            if (page === 'ponderado') {
+                window.location.href = 'ponderado.html';
+            } else if (page === 'direcionado') {
+                window.location.href = 'direcionado.html';
+            }
+        }
+    </script>
+</body>
+</html>

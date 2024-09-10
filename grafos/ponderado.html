@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grafo Não Direcionado e Ponderado</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h3, h4 {
+      color: #333;
+    }
+
+    .configuracoes, .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .configuracoes {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .configuracoes label {
+      font-weight: bold;
+    }
+
+    input[type="number"] {
+      padding: 5px;
+      margin: 5px 0;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #cf8dfc;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #d49bfa;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .container-canvas {
+      flex: 1;
+      margin-right: 20px;
+    }
+
+    canvas {
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      width: 70%;
+      margin-left: 200px;
+    }
+
+    .conexoes {
+      flex: 1;
+      display: none;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    li {
+      background-color: #eee;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    #resultadoCaminho {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #e7f3fe;
+      border: 1px solid #b3d4fc;
+      border-radius: 5px;
+      color: #31708f;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="configuracoes">
+    <h3>Configurações do Grafo</h3>
+    <label for="numNos">Número de Nós:</label>
+    <input type="number" id="numNos" min="1" value="5"><br>
+    
+    <label for="numArestas">Número de Arestas:</label>
+    <input type="number" id="numArestas" min="1" value="5">
+    <button onclick="criarEntradasArestas()">Gerar Entradas de Arestas</button>
+
+    <div id="entradasArestas"></div>
+    <br>
+    <button onclick="gerarGrafo()">Gerar Grafo</button>
+
+    <div id="opcoesAdicionais" style="display: none;">
+      <br>
+      <button onclick="alternarConexoes()">Visualizar Conexões</button>
+      <br><br>
+      <label for="inicio">Início:</label>
+      <input type="number" id="inicio" min="1">
+      <label for="fim">Fim:</label>
+      <input type="number" id="fim" min="1">
+      <button onclick="calcularCaminho()">Calcular Caminho Mais Curto</button>
+      <div id="resultadoCaminho"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="container-canvas">
+      <h4>Grafo</h4>
+      <canvas id="canvasGrafo" width="600" height="400"></canvas>
+    </div>
+
+    <div id="separar">
+      <div id="conexoes" class="conexoes">
+        <h4>Conexões dos Nós</h4>
+        <ul id="listaConexoes"></ul>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    var nos = [];
+    var arestas = [];
+
+    function criarEntradasArestas() {
+        var numNos = parseInt(document.getElementById('numNos').value);
+        var numArestas = parseInt(document.getElementById('numArestas').value);
+        nos = [];
+        for (var i = 1; i <= numNos; i++) {
+            var angulo = 2 * Math.PI * (i - 1) / numNos;
+            var x = 300 + 200 * Math.cos(angulo);
+            var y = 200 + 150 * Math.sin(angulo);
+            nos.push({ id: i, x: x, y: y, label: 'Nó ' + i });
+        }
+
+        var divEntradasArestas = document.getElementById('entradasArestas');
+        divEntradasArestas.innerHTML = ''; // Limpar entradas anteriores
+
+        var titulo = document.createElement('h4');
+        titulo.innerText = "Definir Arestas";
+        divEntradasArestas.appendChild(titulo);
+
+        // Criar campos de entrada para as arestas
+        for (var i = 0; i < numArestas; i++) {
+            var divAresta = document.createElement('div');
+            divAresta.classList.add('entrada-aresta');
+
+            divAresta.innerHTML = 
+                `Aresta ${i + 1} - De:
+                <input type="number" class="entradaDe" min="1" max="${numNos}" required> 
+                Para:
+                <input type="number" class="entradaPara" min="1" max="${numNos}" required>
+                Peso:
+                <input type="number" class="entradaPeso" min="1" required>`;
+            
+            divEntradasArestas.appendChild(divAresta);
+        }
+    }
+
+    function gerarGrafo() {
+        var entradasDe = document.getElementsByClassName('entradaDe');
+        var entradasPara = document.getElementsByClassName('entradaPara');
+        var entradasPeso = document.getElementsByClassName('entradaPeso');
+
+        arestas = [];
+
+        for (var i = 0; i < entradasDe.length; i++) {
+            var de = parseInt(entradasDe[i].value);
+            var para = parseInt(entradasPara[i].value);
+            var peso = parseInt(entradasPeso[i].value);
+
+            if (!isNaN(de) && !isNaN(para) && !isNaN(peso) && de !== para) {
+                // Verificar se a aresta já foi adicionada (não direcionado)
+                var arestaExiste = arestas.some(a => (a.from === de && a.to === para) || (a.from === para && a.to === de));
+                if (!arestaExiste) {
+                    arestas.push({ from: de, to: para, peso: peso });
+                }
+            }
+        }
+
+        desenharGrafo();
+        atualizarListaConexoes();
+        document.getElementById('opcoesAdicionais').style.display = 'block';
+    }
+
+    function desenharGrafo() {
+        var canvas = document.getElementById('canvasGrafo');
+        var ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpar o canvas
+
+        // Desenhar as arestas
+        arestas.forEach(function (aresta) {
+            var noDe = nos.find(no => no.id === aresta.from);
+            var noPara = nos.find(no => no.id === aresta.to);
+
+            if (noDe === noPara) {
+                // Desenhar laço
+                var r = 20; // Raio do laço
+                var deslocamento = 20; // Deslocamento do laço
+                var anguloInicial = 0;
+                var anguloFinal = 2 * Math.PI;
+
+                ctx.beginPath();
+                ctx.arc(noDe.x, noDe.y - deslocamento, r, anguloInicial, anguloFinal);
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                
+                // Desenhar a seta para laços
+                var angulo = Math.PI / 4;
+                ctx.beginPath();
+                ctx.moveTo(noDe.x + r * Math.cos(angulo), noDe.y - deslocamento + r * Math.sin(angulo));
+                ctx.lineTo(noDe.x + r * Math.cos(angulo + Math.PI / 6), noDe.y - deslocamento + r * Math.sin(angulo + Math.PI / 6));
+                ctx.stroke();
+                
+            } else {
+                var dx = noPara.x - noDe.x;
+                var dy = noPara.y - noDe.y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                var angle = Math.atan2(dy, dx);
+                
+                // Adicionar curvatura para arestas bidirecionais
+                var curvature = 0;
+                if (arestas.some(a => a.from === aresta.to && a.to === aresta.from)) {
+                    curvature = 20; // Valor da curvatura
+                }
+
+                ctx.beginPath();
+                ctx.moveTo(noDe.x, noDe.y);
+                ctx.quadraticCurveTo(noDe.x + curvature * Math.cos(angle + Math.PI / 2), noDe.y + curvature * Math.sin(angle + Math.PI / 2), noPara.x, noPara.y);
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // Desenhar a seta
+                ctx.beginPath();
+                var arrowSize = 10;
+                var arrowAngle = Math.PI / 6;
+                ctx.moveTo(noPara.x, noPara.y);
+                ctx.lineTo(noPara.x - arrowSize * Math.cos(angle - arrowAngle), noPara.y - arrowSize * Math.sin(angle - arrowAngle));
+                ctx.moveTo(noPara.x, noPara.y);
+                ctx.lineTo(noPara.x - arrowSize * Math.cos(angle + arrowAngle), noPara.y - arrowSize * Math.sin(angle + arrowAngle));
+                ctx.stroke();
+                
+                // Adicionar peso da aresta
+                ctx.fillStyle = 'black';
+                ctx.font = '12px Arial';
+                var midX = (noDe.x + noPara.x) / 2;
+                var midY = (noDe.y + noPara.y) / 2;
+                ctx.fillText(aresta.peso, midX, midY);
+            }
+        });
+
+        // Desenhar os nós
+        nos.forEach(function (no) {
+            ctx.beginPath();
+            ctx.arc(no.x, no.y, 20, 0, 2 * Math.PI);
+            ctx.fillStyle = '#e0b0ff';
+            ctx.fill();
+            ctx.stroke();
+
+            // Desenhar os rótulos dos nós
+            ctx.fillStyle = 'black';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(no.label, no.x, no.y + 4);
+        });
+    }
+
+    function atualizarListaConexoes() {
+        var listaConexoes = document.getElementById('listaConexoes');
+        listaConexoes.innerHTML = '';
+
+        var conexoes = {};
+        nos.forEach(function (no) {
+            conexoes[no.id] = [];
+        });
+
+        arestas.forEach(function (aresta) {
+            conexoes[aresta.from].push({ to: aresta.to, peso: aresta.peso });
+            conexoes[aresta.to].push({ to: aresta.from, peso: aresta.peso }); // Adicionar a aresta reversa para não direcionado
+        });
+
+        for (var idNo in conexoes) {
+            var no = nos.find(n => n.id == idNo);
+            var textoConexoes = conexoes[idNo].map(function (alvo) {
+                return `: ${nos.find(n => n.id === alvo.to).label} (Peso: ${alvo.peso})`;
+            }).join(' ');
+
+            var itemLista = document.createElement('li');
+            itemLista.textContent = `${no.label} ${textoConexoes}`;
+            listaConexoes.appendChild(itemLista);
+        }
+    }
+
+    function alternarConexoes() {
+        var divConexoes = document.getElementById('conexoes');
+        if (divConexoes.style.display === 'none') {
+            divConexoes.style.display = 'block';
+        } else {
+            divConexoes.style.display = 'none';
+        }
+    }
+
+    function calcularCaminho() {
+        var inicio = parseInt(document.getElementById('inicio').value);
+        var fim = parseInt(document.getElementById('fim').value);
+
+        var resultadoCaminho = document.getElementById('resultadoCaminho');
+        resultadoCaminho.innerHTML = '';
+
+        if (isNaN(inicio) || isNaN(fim) || inicio === fim) {
+            resultadoCaminho.innerHTML = 'Por favor, forneça um início e fim válidos.';
+            return;
+        }
+
+        var distancias = {};
+        var predecessores = {};
+        var visitados = new Set();
+        var fila = [];
+
+        // Inicializar distâncias e predecessores
+        nos.forEach(no => {
+            distancias[no.id] = Infinity;
+            predecessores[no.id] = null;
+        });
+        distancias[inicio] = 0;
+
+        fila.push({ id: inicio, dist: 0 });
+
+        var iteracao = 1;
+
+        while (fila.length > 0) {
+            fila.sort((a, b) => a.dist - b.dist);
+            var atual = fila.shift().id;
+
+            if (visitados.has(atual)) continue;
+            visitados.add(atual);
+
+            // Exibir distâncias e predecessores após cada iteração
+            mostrarEstadoAtual(iteracao, distancias, predecessores);
+            iteracao++;
+
+            if (atual === fim) break;
+
+            var adjacentes = arestas.filter(aresta => aresta.from === atual || aresta.to === atual);
+            adjacentes.forEach(aresta => {
+                var vizinho = (aresta.from === atual) ? aresta.to : aresta.from;
+                var novaDistancia = distancias[atual] + aresta.peso;
+
+                if (novaDistancia < distancias[vizinho]) {
+                    distancias[vizinho] = novaDistancia;
+                    predecessores[vizinho] = atual;
+                    fila.push({ id: vizinho, dist: novaDistancia });
+                }
+            });
+        }
+
+        // Reconstituir o caminho
+        var caminho = [];
+        var atual = fim;
+        while (atual !== null) {
+            caminho.unshift(atual);
+            atual = predecessores[atual];
+        }
+
+        if (caminho[0] !== inicio) {
+            resultadoCaminho.innerHTML = 'Não é possível alcançar o destino a partir do nó inicial.';
+            return;
+        }
+
+        // Exibir o caminho e pesos
+        var textoCaminho = `Caminho mais curto de ${inicio} a ${fim}: ${caminho.join(' -> ')}<br>`;
+        textoCaminho += `Distância total: ${distancias[fim]}<br>`;
+        resultadoCaminho.innerHTML += textoCaminho;
+    }
+
+    function mostrarEstadoAtual(iteracao, distancias, predecessores) {
+        var estadoAtual = document.getElementById('resultadoCaminho');
+        var texto = `<h4>Iteração ${iteracao}</h4>`;
+        texto += '<p><strong>Distâncias:</strong></p>';
+        texto += '<ul>';
+        for (var noId in distancias) {
+            texto += `<li>Nó ${noId}: ${distancias[noId] === Infinity ? 'Infinito' : distancias[noId]}</li>`;
+        }
+        texto += '</ul>';
+        texto += '<p><strong>Predecessores:</strong></p>';
+        texto += '<ul>';
+        for (var noId in predecessores) {
+            texto += `<li>Nó ${noId}: ${predecessores[noId] === null ? 'Nenhum' : predecessores[noId]}</li>`;
+        }
+        texto += '</ul>';
+        estadoAtual.
+        innerHTML += texto;
+    }
+
+    
+  </script>
+</body>
+</html>

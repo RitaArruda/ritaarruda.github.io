@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grafo Direcional Não Ponderado</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h3, h4 {
+      color: #333;
+    }
+
+    .configuracoes, .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .configuracoes {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .configuracoes label {
+      font-weight: bold;
+    }
+
+    input[type="number"], select {
+      padding: 5px;
+      margin: 5px 0;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #cf8dfc;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #d49bfa;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .container-canvas {
+      flex: 1;
+      margin-right: 20px;
+    }
+
+    canvas {
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      width: 70%;
+      margin-left: 200px;
+    }
+
+    .conexoes, .lista-nos {
+      flex: 1;
+      display: none;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 20px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    li {
+      background-color: #eee;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    #saidaCFC, #saidaOrdenacao, #saidaMatrizTransposta, #listaNosNaoVisitados {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #e7f3fe;
+      border: 1px solid #b3d4fc;
+      border-radius: 5px;
+      color: #31708f;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="configuracoes">
+    <h3>Configurações do Grafo</h3>
+    <label for="numNos">Número de Nós:</label>
+    <input type="number" id="numNos" min="1" value="5"><br>
+    
+    <label for="numArestas">Número de Arestas:</label>
+    <input type="number" id="numArestas" min="1" value="5">
+    <button onclick="criarEntradasArestas()">Gerar Entradas de Arestas</button>
+
+    <div id="entradasArestas"></div>
+    <br>
+    <button onclick="gerarGrafo()">Gerar Grafo</button>
+
+    <div id="opcoesAdicionais" style="display: none;">
+      <br>
+      <button onclick="alternarConexoes()">Visualizar Conexões</button>
+      <button onclick="mostrarNosSemDependencia()">Verificar Nó Sem Dependência</button>
+    
+      <div id="nosSemDependencia" class="lista-nos" style="display: none;">
+        <h4>Selecionar Nós Sem Dependência</h4>
+        <select id="selecaoNosSemDependencia">
+            <option value="">Selecione um nó</option>
+        </select>
+        <button onclick="ordenacaoTopologica()">Ordenação Topológica</button>
+        <button onclick="mostrarMatrizTransposta()">Mostrar Matriz Transposta</button>
+      </div>
+    </div>
+
+    <h3>Configurações da Busca em Profundidade</h3>
+    <button onclick="gerarOpcoesDeNos()">Gerar Nós</button>
+    <div id="noInicialObj" class="lista-nos" style="display: none;"><br>
+      <label for="noInicial">Escolha um nó para iniciar a busca:</label>
+      <select id="selecaoNoInicial">
+        <option value="">Selecione um nó</option>
+      </select><br><br>
+      <button onclick="iniciarBusca()">Iniciar Busca em Profundidade</button>
+
+      <div id="listaNosNaoVisitados">
+        <h4>Nós Não Visitados:</h4><br>
+        <ul id="listaNosNaoVisitados"></ul>
+      </div>
+
+      <h4>Encontrar Componentes Fortemente Conectados</h4>
+      <button onclick="encontrarCFC()">Encontrar CFC</button>
+      <div id="saidaCFC"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="container-canvas">
+      <h4>Grafo</h4>
+      <canvas id="canvasGrafo" width="600" height="400"></canvas>
+    </div>
+    <div id="separar">
+      <div id="conexoes" class="conexoes">
+        <h4>Conexões dos Nós</h4>
+        <ul id="listaConexoes"></ul>
+      </div>
+      <div id="saidaOrdenacao"></div>
+      <div id="saidaMatrizTransposta"></div>
+    </div>
+  </div>
+
+
+  <script>
+    var nos = [];
+
+    function gerarOpcoesDeNos() {
+      var numNos = parseInt(document.getElementById('numNos').value);
+      var selecao = document.getElementById('selecaoNoInicial');
+
+      selecao.innerHTML = ''; // Limpa as opções anteriores
+      for (var i = 1; i <= numNos; i++) {
+        var opcao = document.createElement('option');
+        opcao.value = i;
+        opcao.textContent = "Selecionar Nó " + i;
+        selecao.appendChild(opcao);
+      }
+
+      document.getElementById('noInicialObj').style.display = 'block';
+    }
+    var canvas = document.getElementById('canvasGrafo');
+    var ctx = canvas.getContext('2d');
+
+    var nos = [];
+    var arestas = [];
+    var ordemDescoberta = [];
+    var ordemFinalizacao = [];
+    var tempo = 0;
+
+     // Função para criar entradas para as arestas
+     function criarEntradasArestas() {
+            var numNos = parseInt(document.getElementById('numNos').value);
+            var numArestas = parseInt(document.getElementById('numArestas').value);
+            nos = [];
+            for (var i = 1; i <= numNos; i++) {
+                var angulo = 2 * Math.PI * (i - 1) / numNos;
+                var x = 300 + 200 * Math.cos(angulo);
+                var y = 200 + 150 * Math.sin(angulo);
+                nos.push({ id: i, x: x, y: y, label: 'Nó ' + i });
+            }
+
+            var divEntradasArestas = document.getElementById('entradasArestas');
+            divEntradasArestas.innerHTML = ''; // Limpar entradas anteriores
+
+            var titulo = document.createElement('h4');
+            titulo.innerText = "Definir Arestas";
+            divEntradasArestas.appendChild(titulo);
+
+            // Criar campos de entrada para as arestas
+            for (var i = 0; i < numArestas; i++) {
+                var divAresta = document.createElement('div');
+                divAresta.classList.add('entrada-aresta');
+
+                divAresta.innerHTML = 
+                    `Aresta ${i + 1} - De:
+                    <input type="number" class="entradaDe" min="1" max="${numNos}" required> 
+                    Para:
+                    <input type="number" class="entradaPara" min="1" max="${numNos}" required>`;
+                
+                divEntradasArestas.appendChild(divAresta);
+            }
+        }
+
+        // Função para gerar o grafo com base nas entradas do usuário
+        function gerarGrafo() {
+            var entradasDe = document.getElementsByClassName('entradaDe');
+            var entradasPara = document.getElementsByClassName('entradaPara');
+
+            arestas = [];
+
+            for (var i = 0; i < entradasDe.length; i++) {
+                var de = parseInt(entradasDe[i].value);
+                var para = parseInt(entradasPara[i].value);
+
+                if (!isNaN(de) && !isNaN(para)) {
+                    arestas.push({ from: de, to: para });
+                }
+            }
+
+            desenharGrafo();
+            atualizarListaConexoes();
+            document.getElementById('opcoesAdicionais').style.display = 'block';
+        }
+
+        // Função para desenhar o grafo
+        function desenharGrafo() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpar o canvas
+
+            // Desenhar as arestas
+            arestas.forEach(function (aresta) {
+                var noDe = nos.find(no => no.id === aresta.from);
+                var noPara = nos.find(no => no.id === aresta.to);
+
+                if (noDe === noPara) {
+                    // Desenhar laço
+                    var r = 20; // Raio do laço
+                    var deslocamento = 20; // Deslocamento do laço
+                    var anguloInicial = 0;
+                    var anguloFinal = 2 * Math.PI;
+
+                    ctx.beginPath();
+                    ctx.arc(noDe.x, noDe.y - deslocamento, r, anguloInicial, anguloFinal);
+                    ctx.strokeStyle = 'black';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                    
+                    // Desenhar a seta para laços
+                    var angulo = Math.PI / 4;
+                    ctx.beginPath();
+                    ctx.moveTo(noDe.x + r * Math.cos(angulo), noDe.y - deslocamento + r * Math.sin(angulo));
+                    ctx.lineTo(noDe.x + r * Math.cos(angulo + Math.PI / 6), noDe.y - deslocamento + r * Math.sin(angulo + Math.PI / 6));
+                    ctx.stroke();
+                    
+                } else {
+                    var dx = noPara.x - noDe.x;
+                    var dy = noPara.y - noDe.y;
+                    var dist = Math.sqrt(dx * dy + dy * dy);
+                    var angle = Math.atan2(dy, dx);
+                    
+                    // Adicionar curvatura para arestas bidirecionais
+                    var curvature = 0;
+                    if (arestas.some(a => a.from === aresta.to && a.to === aresta.from)) {
+                        curvature = 20; // Valor da curvatura
+                    }
+
+                    ctx.beginPath();
+                    ctx.moveTo(noDe.x, noDe.y);
+                    ctx.quadraticCurveTo(noDe.x + curvature * Math.cos(angle + Math.PI / 2), noDe.y + curvature * Math.sin(angle + Math.PI / 2), noPara.x, noPara.y);
+                    ctx.strokeStyle = 'black';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+
+                    // Desenhar a seta
+                    ctx.beginPath();
+                    var arrowSize = 10;
+                    var arrowAngle = Math.PI / 6;
+                    ctx.moveTo(noPara.x, noPara.y);
+                    ctx.lineTo(noPara.x - arrowSize * Math.cos(angle - arrowAngle), noPara.y - arrowSize * Math.sin(angle - arrowAngle));
+                    ctx.moveTo(noPara.x, noPara.y);
+                    ctx.lineTo(noPara.x - arrowSize * Math.cos(angle + arrowAngle), noPara.y - arrowSize * Math.sin(angle + arrowAngle));
+                    ctx.stroke();
+                }
+            });
+
+            // Desenhar os nós
+            nos.forEach(function (no) {
+                ctx.beginPath();
+                ctx.arc(no.x, no.y, 20, 0, 2 * Math.PI);
+                ctx.fillStyle = '#e0b0ff';
+                ctx.fill();
+                ctx.stroke();
+
+                // Desenhar os rótulos dos nós
+                ctx.fillStyle = 'black';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(no.label, no.x, no.y + 4);
+            });
+        }
+
+
+    // ATIVIDADE 1 A impressão dos nós e suas conexões:
+    function atualizarListaConexoes() {
+      var listaConexoes = document.getElementById('listaConexoes');
+      listaConexoes.innerHTML = '';
+
+      var conexoes = {};
+      nos.forEach(function (no) {
+        conexoes[no.id] = [];
+      });
+
+      arestas.forEach(function (aresta) {
+        conexoes[aresta.from].push(aresta.to);
+      });
+
+      for (var idNo in conexoes) {
+        var no = nos.find(n => n.id == idNo);
+        var textoConexoes = conexoes[idNo].map(function (alvo) {
+          return `-> ${nos.find(n => n.id === alvo).label}`;
+        }).join(' ');
+
+        var itemLista = document.createElement('li');
+        itemLista.textContent = `${no.label} ${textoConexoes}`;
+        listaConexoes.appendChild(itemLista);
+      }
+    }
+    function alternarConexoes() {
+        var divConexoes = document.getElementById('conexoes');
+        if (divConexoes.style.display === 'none') {
+            divConexoes.style.display = 'block';
+        } else {
+            divConexoes.style.display = 'none';
+        }
+        }
+
+    //ATIVIDADE 2 apresentar a lista de nós sem dependência
+    function mostrarNosSemDependencia() {
+      var selecaoNos = document.getElementById('selecaoNosSemDependencia');
+      selecaoNos.innerHTML = '<option value="">Selecione um nó</option>'; // Limpar opções anteriores
+
+      var nosComDependencias = new Set();
+      arestas.forEach(function (aresta) {
+        nosComDependencias.add(aresta.to);
+      });
+
+      var nosSemDependencias = nos.filter(no => !nosComDependencias.has(no.id));
+
+      nosSemDependencias.forEach(function (no) {
+        var opcao = document.createElement('option');
+        opcao.value = no.id;
+        opcao.textContent = no.label;
+        selecaoNos.appendChild(opcao);
+      });
+
+      document.getElementById('nosSemDependencia').style.display = 'block';
+    }
+
+
+    //ATIVIDADE 2 A Ordenação topológica do grafo: c -> d -> a -> b 
+    //ATIVIDADE 2 A A ordem de descoberta e finalização de cada nó do grafo: a (1/5), b (2/4), c (3,8), d(6,7)
+    function ordenacaoTopologica() {
+  var selecaoNos = document.getElementById('selecaoNosSemDependencia');
+  var noInicial = parseInt(selecaoNos.value);
+
+  var visitado = new Set();
+  var pilha = [];
+  tempo = 0;
+  ordemDescoberta = [];
+  ordemFinalizacao = [];
+
+  function dfs(no) {
+    visitado.add(no.id);
+    tempo++;
+    ordemDescoberta.push({ no: no.id, tempo: tempo });
+
+    var conexoes = arestas.filter(aresta => aresta.from === no.id);
+
+    conexoes.forEach(function (aresta) {
+      var proximoNo = nos.find(n => n.id === aresta.to);
+      if (!visitado.has(proximoNo.id)) {
+        dfs(proximoNo);
+      }
+    });
+
+    tempo++;
+    ordemFinalizacao.push({ no: no.id, tempo: tempo });
+    pilha.push(no.label);
+  }
+
+  // Iniciar a DFS a partir do nó selecionado
+  var noInicialObj = nos.find(n => n.id === noInicial);
+  dfs(noInicialObj);
+
+  // Verificar se há nós desconexos e realizar DFS nos nós sem dependência restantes
+  var nosSemDependencias = nos.filter(no => !visitado.has(no.id));
+  while (nosSemDependencias.length > 0) {
+    var proximoNo = nosSemDependencias[0];
+    dfs(proximoNo);
+    nosSemDependencias = nos.filter(no => !visitado.has(no.id));
+  }
+
+  // Exibir a ordenação topológica e a ordem de descoberta e finalização
+  var resultadoOrdenacao = "Ordenação Topológica: " + pilha.reverse().join(" -> ");
+  var ordemDescFinal = ordemDescoberta.map((d, i) => {
+    var final = ordemFinalizacao.find(f => f.no === d.no).tempo;
+    return nos.find(n => n.id === d.no).label + " (" + d.tempo + "/" + final + ")";
+  }).join(", ");
+  var resultadoOrdemDescFinal = "Ordem de Descoberta/Finalização: " + ordemDescFinal;
+
+  document.getElementById('saidaOrdenacao').innerHTML = `
+    <p>${resultadoOrdenacao}</p>
+    <p>${resultadoOrdemDescFinal}</p>
+  `;
+}
+
+function calcularMatrizAdjacencia() {
+  var numNos = nos.length;
+  var matriz = Array.from({ length: numNos }, () => Array(numNos).fill(0));
+
+  arestas.forEach(function (aresta) {
+    var de = aresta.from - 1; // Ajuste para índice baseado em 0
+    var para = aresta.to - 1; // Ajuste para índice baseado em 0
+    matriz[de][para] = 1;
+  });
+
+  return matriz;
+}
+
+
+//ATIVIDADE 2 B Apresentar a matriz transposta de G escolhido.
+function calcularMatrizTransposta(matriz) {
+  var numNos = matriz.length;
+  var matrizTransposta = Array.from({ length: numNos }, () => Array(numNos).fill(0));
+
+  for (var i = 0; i < numNos; i++) {
+    for (var j = 0; j < numNos; j++) {
+      matrizTransposta[j][i] = matriz[i][j];
+    }
+  }
+
+  return matrizTransposta;
+}
+
+function mostrarMatrizTransposta() {
+  var matrizAdjacencia = calcularMatrizAdjacencia();
+  var matrizTransposta = calcularMatrizTransposta(matrizAdjacencia);
+
+  var saida = document.getElementById('saidaMatrizTransposta');
+  saida.innerHTML = '<h4>Matriz Transposta</h4>';
+
+  var tabela = document.createElement('table');
+  tabela.style.borderCollapse = 'collapse';
+
+  matrizTransposta.forEach(function (linha) {
+    var tr = document.createElement('tr');
+    linha.forEach(function (valor) {
+      var td = document.createElement('td');
+      td.textContent = valor;
+      td.style.border = '1px solid black';
+      td.style.padding = '5px';
+      tr.appendChild(td);
+    });
+    tabela.appendChild(tr);
+  });
+
+  saida.appendChild(tabela);
+}
+
+
+// ATIVIDADE 2 B A ordem de descoberta e finalização de cada nó do grafo G e GT
+function exibirOrdemDescobertaFinalizacao() {
+  var resultadoOrdemDescFinal = document.getElementById('saidaOrdenacao');
+  var ordemDescFinal = ordemDescoberta.map((d, i) => {
+    var final = ordemFinalizacao.find(f => f.no === d.no).tempo;
+    return nos.find(n => n.id === d.no).label + " (" + d.tempo + "/" + final + ")";
+  }).join(", ");
+
+  resultadoOrdemDescFinal.innerHTML = `
+    <p>Ordem de Descoberta/Finalização da Busca em Profundidade:</p>
+    <p>${ordemDescFinal}</p>
+  `;
+}
+
+function exibirOrdemDescobertaFinalizacaoTransposta() {
+  function dfsTransposto(no, matrizTransposta, visitado) {
+    visitado.add(no.id);
+    tempo++;
+    ordemDescoberta.push({ no: no.id, tempo: tempo });
+
+    var conexoes = matrizTransposta[no.id - 1].map((val, index) => val ? index + 1 : null).filter(index => index !== null);
+
+    conexoes.forEach(function (indice) {
+      var proximoNo = nos.find(n => n.id === indice);
+      if (!visitado.has(proximoNo.id)) {
+        dfsTransposto(proximoNo, matrizTransposta, visitado);
+      }
+    });
+
+    tempo++;
+    ordemFinalizacao.push({ no: no.id, tempo: tempo });
+  }
+
+  // Calcular a matriz adjacente e sua transposta
+  var matrizAdjacencia = calcularMatrizAdjacencia();
+  var matrizTransposta = calcularMatrizTransposta(matrizAdjacencia);
+
+  var visitado = new Set();
+  tempo = 0;
+  ordemDescoberta = [];
+  ordemFinalizacao = [];
+
+  // Iniciar DFS a partir do nó selecionado
+  var noInicialObj = nos.find(n => n.id === parseInt(document.getElementById('selecaoNoInicial').value));
+  if (noInicialObj) {
+    dfsTransposto(noInicialObj, matrizTransposta, visitado);
+
+    // Verificar se há nós desconexos e realizar DFS nos nós sem dependência restantes
+    var nosNaoVisitados = nos.filter(no => !visitado.has(no.id));
+    while (nosNaoVisitados.length > 0) {
+      var proximoNo = nosNaoVisitados[0];
+      dfsTransposto(proximoNo, matrizTransposta, visitado);
+      nosNaoVisitados = nos.filter(no => !visitado.has(no.id));
+    }
+
+    // Exibir a ordem de descoberta e finalização no grafo transposto
+    var ordemDescFinal = ordemDescoberta.map((d, i) => {
+      var final = ordemFinalizacao.find(f => f.no === d.no).tempo;
+      return nos.find(n => n.id === d.no).label + " (" + d.tempo + "/" + final + ")";
+    }).join(", ");
+
+    var resultadoOrdemDescFinal = document.getElementById('saidaOrdenacao');
+    resultadoOrdemDescFinal.innerHTML += `
+      <h4>Ordem de Descoberta/Finalização no Grafo Transposto:</h4>
+      <p>${ordemDescFinal}</p>
+    `;
+  } else {
+    alert("Por favor, selecione um nó válido para iniciar a busca.");
+  }
+}
+
+//lista de nós não visitados para nova busca em profundidade.
+function iniciarBusca() {
+    var selecaoNo = document.getElementById('selecaoNoInicial');
+    var noInicial = parseInt(selecaoNo.value);
+
+    if (isNaN(noInicial)) {
+      alert("Por favor, selecione um nó válido.");
+      return;
+    }
+
+    var visitado = new Set();
+    tempo = 0;
+    ordemDescoberta = [];
+    ordemFinalizacao = [];
+
+    function dfs(no) {
+      visitado.add(no.id);
+      tempo++;
+      ordemDescoberta.push({ no: no.id, tempo: tempo });
+
+      var conexoes = arestas.filter(aresta => aresta.from === no.id);
+      conexoes.forEach(function (aresta) {
+        var proximoNo = nos.find(n => n.id === aresta.to);
+        if (!visitado.has(proximoNo.id)) {
+          dfs(proximoNo);
+        }
+      });
+
+      tempo++;
+      ordemFinalizacao.push({ no: no.id, tempo: tempo });
+    }
+
+    // Iniciar DFS a partir do nó selecionado
+    var noInicialObj = nos.find(n => n.id === noInicial);
+    dfs(noInicialObj);
+
+    // Mostrar nós não visitados
+    var nosNaoVisitados = nos.filter(no => !visitado.has(no.id));
+    var listaNosNaoVisitados = document.getElementById('listaNosNaoVisitados');
+    listaNosNaoVisitados.innerHTML = '';
+
+    if (nosNaoVisitados.length > 0) {
+      nosNaoVisitados.forEach(function (no) {
+        var li = document.createElement('li');
+        li.textContent = no.label;
+        li.onclick = function () {
+          selecaoNo.value = no.id;
+          iniciarBusca();
+        };
+        listaNosNaoVisitados.appendChild(li);
+      });
+    } else {
+      listaNosNaoVisitados.innerHTML = '<p>Todos os nós foram visitados.</p>';
+    }
+
+    exibirOrdemDescobertaFinalizacao();
+    exibirOrdemDescobertaFinalizacaoTransposta();
+  }
+
+  // Atualizar a seleção de nós para a busca
+  function atualizarSelecaoNos() {
+    var selecaoNoInicial = document.getElementById('selecaoNoInicial');
+    selecaoNoInicial.innerHTML = '<option value="">Selecione um nó</option>';
+    nos.forEach(function (no) {
+      var opcao = document.createElement('option');
+      opcao.value = no.id;
+      opcao.textContent = no.label;
+      selecaoNoInicial.appendChild(opcao);
+    });
+  }
+
+
+  //ATIVIDADE 2 B Conjuntos de grafos fortemente conectados
+  function encontrarCFC() {
+  var indice = 0;
+  var pilha = [];
+  var indices = {};
+  var baixoLinks = {};
+  var emPilha = {};
+  var cfcList = [];
+
+  function conexaoForte(no) {
+    indices[no.id] = indice;
+    baixoLinks[no.id] = indice;
+    indice++;
+    pilha.push(no.id);
+    emPilha[no.id] = true;
+
+    var conexoes = arestas.filter(aresta => aresta.from === no.id).map(aresta => aresta.to);
+
+    conexoes.forEach(function (v) {
+      if (!(v in indices)) {
+        conexaoForte(nos.find(n => n.id === v));
+        baixoLinks[no.id] = Math.min(baixoLinks[no.id], baixoLinks[v]);
+      } else if (emPilha[v]) {
+        baixoLinks[no.id] = Math.min(baixoLinks[no.id], indices[v]);
+      }
+    });
+
+    if (baixoLinks[no.id] === indices[no.id]) {
+      var cfc = [];
+      var w;
+      do {
+        w = pilha.pop();
+        emPilha[w] = false;
+        cfc.push(nos.find(n => n.id === w).label);
+      } while (w !== no.id);
+      cfcList.push(cfc);
+    }
+  }
+
+  nos.forEach(function (no) {
+    if (!(no.id in indices)) {
+      conexaoForte(no);
+    }
+  });
+
+  var saida = document.getElementById('saidaCFC');
+  saida.innerHTML = '<h4>Componentes Fortemente Conectados</h4>';
+  
+  cfcList.forEach(function (cfc, index) {
+    var paragrafo = document.createElement('p');
+    paragrafo.textContent = 'CFC ' + (index + 1) + ': ' + cfc.join(', ');
+    saida.appendChild(paragrafo);
+  });
+}
+
+
+  </script>
+</body>
+</html>
